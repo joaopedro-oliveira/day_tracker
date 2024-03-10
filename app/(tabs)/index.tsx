@@ -1,31 +1,27 @@
-import { StyleSheet } from 'react-native';
+// App.js
+import React from 'react';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NativeBaseProvider } from 'native-base';
+import FirstScreen from './register/FirstScreen';
+import SecondScreen from './register/SecondScreen';
+import ThirdScreen from './register/ThirdScreen';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+const Stack = createStackNavigator();
 
-export default function TabOneScreen() {
+const App: React.FC = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <NativeBaseProvider>
+      <NavigationContainer independent={true}>
+        <Stack.Navigator  initialRouteName="FirstScreen">
+          <Stack.Screen name="FirstScreen" component={FirstScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="SecondScreen" component={SecondScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="ThirdScreen" component={ThirdScreen} options={{ headerShown: false }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+export default App;
